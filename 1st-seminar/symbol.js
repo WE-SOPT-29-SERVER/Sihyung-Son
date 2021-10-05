@@ -12,5 +12,5 @@ Array.prototype[includes]=function(){
 
 var arr=[1,2,3];
 console.log(arr.includes(1)); //js 기본 includes 함수 includes()는 문자열이 특정 문자열을 포함하는지 확인하는 메서드입니다
-console.log(arr["includes"](1)); //js 기본 includes 함수 includes()는 문자열이 특정 문자열을 포함하는지 확인하는 메서드입니다
+console.log(arr["includes"](1)); //js 기본 includes 
 console.log(arr[includes]()); //its symbol, 커스텀 includes 함수
