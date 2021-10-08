@@ -1,5 +1,4 @@
-
-module.exports.members = [
+exports.members = [
     { name: "강한희", part: "Server", group: "OB" },
     { name: "고성용", part: "Server", group: "OB" },
     { name: "구건모", part: "Server", group: "YB" },
@@ -38,3 +37,4 @@ module.exports.members = [
     { name: "최진영", part: "Server", group: "YB" },
     { name: "허유정", part: "Server", group: "YB" },
   ];
+
