@@ -1,10 +1,10 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-router.get("/post",(req, res)=>{
+router.get("/login", (req, res)=>{
     const result = {
-        status :200,
-        message : "blog post",
+        status : 200,
+        message : "login",
     };
     res.status(200).send(result);
 });

@@ -8,6 +8,7 @@ router.get('/', function(req, res, next) {
 
 router.use("/api",require("./api"));
 
-router.use("/blog",require('./blog'));
+router.use("/blog",require('./blog')); //blog 폴더 접근
 
+router.use("/users", require('./users')) //users 접근
 module.exports = router;
