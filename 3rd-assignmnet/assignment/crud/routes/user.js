@@ -3,6 +3,7 @@ const users = require("../../dbMockup/user");
 const util = require("../../lib/util");
 const statusCode = require("../../constants/statusCode");
 const responseMessage = require("../../constants/responseMessage");
+const user = require("../../dbMockup/user");
 const router = express.Router();
 
 router.post('/signup',(req,res)=>{
@@ -63,4 +64,49 @@ router.get("/profile/:id",async(req,res)=>{
         "userId":id
     }));
 })
+
+//update
+router.put("/:id",async (req,res)=>{
+    const {id}= req.params;
+    const {newName}= req.body;
+
+    if(!id || !newName){
+        return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE),
+        );
+    }
+
+    const existingUser = users.filter(uesr=>user.id === id)[0]
+    if(!existingUser){
+        return res.status(statusCode.NOT_FOUND).send(util.fail(statusCode.NOT_FOUND,responseMessage.NO_USER)
+        );
+    }
+
+    const updateUser = {...existingUser, name: newName};
+
+    res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.USER_UPDATE_SUCCESS,updateUser,),
+    );
+});
+
+//delete
+
+router.delete("/:id", async(req,res)=>{
+    const {id}=req.params;
+
+    if(!id){
+        return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.NULL_VALUE),
+        );
+    }
+
+    const existingUser = users.filter(user=>user.id === Number(id))[0];
+
+    if(!existingUser){
+        return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,responseMessage.NO_USER));
+    }
+
+    const newUsers = users.filter(user=>user.id !==Number(id));
+
+    res.status(statusCode.OK).send(util.success(statusCode.OK,responseMessage.USER_DELETE_SUCCESS,newUsers),
+    );
+});
+
 module.exports = router;

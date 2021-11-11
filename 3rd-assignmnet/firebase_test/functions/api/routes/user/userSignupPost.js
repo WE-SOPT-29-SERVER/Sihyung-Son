@@ -1,4 +1,4 @@
-const util = require('../../../lib/util');
+var util = require('../../../lib/util');
 const statusCode = require('../../../constants/statusCode');
 const responseMessage = require('../../../constants/responseMessage');
 const users = require('../../../dbMockup/user');
