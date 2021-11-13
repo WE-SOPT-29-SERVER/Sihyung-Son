@@ -66,4 +66,4 @@ node_modules/
 .env
 
 #firebase 비공개키
-wesopt29-a589f-firebase-adminsdk-f7jeu-73b28fe4b8.json
+firebasekey.json
