@@ -6,17 +6,16 @@ const db = require('../../../db/db');
 
 module.exports = async (req, res) => {
 
-  const {} = req.params
-  const {} = req.query
-  const {} = req.body
+  const {userId} = req.params
+
+  const {username, phone} = req.body
   
   // 필요한 값이 없을 때 보내주는 response
-  if (!) return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
+  if (!userId) return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
   
   let client;
   
-  
-  
+
   // 에러 트래킹을 위해 try / catch문을 사용합니다.
   // try문 안에서 우리의 로직을 실행합니다.
   try {
@@ -24,7 +23,7 @@ module.exports = async (req, res) => {
     client = await db.connect(req);
 
     // 빌려온 connection을 사용해 우리가 db/[파일].js에서 미리 정의한 SQL 쿼리문을 날려줍니다.
-    const DB데이터 = await userDB.쿼리문이름(client);
+    const updateUser = await userDB.updateUser(client);
     
     // 성공적으로 users를 가져왔다면, response를 보내줍니다.
     res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_ALL_USERS_SUCCESS, DB데이터));
@@ -46,5 +45,4 @@ module.exports = async (req, res) => {
   } finally {
     client.release();
   }
-};
-
+};  

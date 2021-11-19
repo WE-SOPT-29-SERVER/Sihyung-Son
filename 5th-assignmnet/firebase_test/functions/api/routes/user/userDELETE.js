@@ -3,18 +3,16 @@ const util = require('../../../lib/util');
 const statusCode = require('../../../constants/statusCode');
 const responseMessage = require('../../../constants/responseMessage');
 const db = require('../../../db/db');
+const { userDB } = require('../../../db');
+const { DELETE_ONE_USER_SUCCESS } = require('../../../constants/responseMessage');
 
 module.exports = async (req, res) => {
 
-  const {} = req.params
-  const {} = req.query
-  const {} = req.body
-  
+  const {userId} = req.params
   // 필요한 값이 없을 때 보내주는 response
-  if (!) return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
+  if (!userId) return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
   
   let client;
-  
   
   
   // 에러 트래킹을 위해 try / catch문을 사용합니다.
@@ -24,10 +22,10 @@ module.exports = async (req, res) => {
     client = await db.connect(req);
 
     // 빌려온 connection을 사용해 우리가 db/[파일].js에서 미리 정의한 SQL 쿼리문을 날려줍니다.
-    const DB데이터 = await userDB.쿼리문이름(client);
+    const deleteUser = await userDB.deleteUser(client,userId);
     
     // 성공적으로 users를 가져왔다면, response를 보내줍니다.
-    res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_ALL_USERS_SUCCESS, DB데이터));
+    res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_ALL_USERS_SUCCESS, DELETE_ONE_USER_SUCCESS));
     
     // try문 안에서 에러가 발생했을 시 catch문으로 error객체가 넘어옵니다.
     // 이 error 객체를 콘솔에 찍어서 어디에 문제가 있는지 알아냅니다.
@@ -47,4 +45,3 @@ module.exports = async (req, res) => {
     client.release();
   }
 };
-
